@@ -3,22 +3,15 @@ end
 
 require './questions'
 require './player'
+require './turn'
 
 player1 = MathGame::Player.new("Player1")
 player2 = MathGame::Player.new("Player2")
 question = MathGame::Questions.new("1")
-
-play = 1
-def playturn(play)
-  if play == 1
-    return player = 1
-  else
-    return player = 2
-  end
-end
+turn = MathGame::Turn.new("turns")
 
 while player1.life > 0 || player2.life > 0 do
-  player = playturn(play)
+  player = turn.playturn
   puts "player#{player} " + question.askquestion
   question.getanswer
   check = question.check
@@ -42,10 +35,10 @@ while player1.life > 0 || player2.life > 0 do
     break
   end
   puts "----- NEW TURN -----"
-  if play == 1
-    play += 1
+  if turn.turn == 1
+    turn.turn += 1
   else
-    play -= 1
+    turn.turn -= 1
   end
 end
 puts "----- GAME OVER -----"
